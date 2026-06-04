@@ -37,7 +37,6 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    border-top: 1px solid var(--color-border-subtle);
   }
 
   /* Subtle background glow effect */
