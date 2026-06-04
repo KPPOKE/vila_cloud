@@ -1,0 +1,293 @@
+@import 'tailwindcss';
+
+/* ========================================
+   Vila Cloud — Design System
+   Design C: Modern Dark, Clean & Focused
+   ======================================== */
+
+@theme {
+  /* Color Palette - Private Ops Console */
+  --color-bg-primary: #060913;
+  --color-bg-secondary: #0A0F1D;
+  --color-bg-card: #0E1525;
+  --color-bg-card-hover: #131B2D;
+  --color-bg-elevated: #162032;
+
+  --color-accent-primary: #10B981; /* Emerald Green */
+  --color-accent-secondary: #059669;
+  --color-accent-coral: #F97316; /* Warm Coral / Orange */
+  --color-accent-coral-hover: #EA580C;
+
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #475569;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-light: rgba(255, 255, 255, 0.1);
+
+  --color-glow-primary: rgba(16, 185, 129, 0.1);
+  --color-glow-coral: rgba(249, 115, 22, 0.15);
+
+  /* Fonts */
+  --font-sans: 'Geist Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Spacing */
+  --section-gap: 8rem;
+  --container-max: 1100px;
+  --container-padding: 1.5rem;
+}
+
+/* ========================================
+   Global Resets & Base Styles
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-image: linear-gradient(var(--color-border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border-subtle) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+}
+
+::selection {
+  background: var(--color-accent-primary);
+  color: var(--color-bg-primary);
+}
+
+/* ========================================
+   Scrollbar
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-elevated);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ========================================
+   Container Utility
+   ======================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* ========================================
+   Section Base
+   ======================================== */
+
+.section {
+  padding: var(--section-gap) 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.section-header-large {
+  text-align: center;
+  margin-bottom: 7rem;
+  position: relative;
+  z-index: 10;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.section-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  max-width: 640px;
+  line-height: 1.7;
+  margin-inline: auto;
+}
+
+/* ========================================
+   Card Base
+   ======================================== */
+
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-border-light);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   Button Styles
+   ======================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  font-family: var(--font-sans);
+  line-height: 1;
+}
+
+.btn-primary {
+  background: var(--color-accent-coral);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-coral-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px var(--color-glow-coral);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-light);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   Badge
+   ======================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-accent-primary);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px var(--color-glow-primary);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--color-glow-primary), 0 0 45px rgba(16, 185, 129, 0.05);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* ========================================
+   Scroll Reveal Animations
+   ======================================== */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+  .section {
+    padding: 6rem 0 4rem 0;
+  }
+
+  .section-title {
+    font-size: 1.625rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+}
