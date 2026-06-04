@@ -53,7 +53,6 @@
     flex-direction: column;
     height: 100%;
     position: relative;
-    overflow: hidden;
   }
 
   .service-card::before {
@@ -63,6 +62,7 @@
     left: 0;
     right: 0;
     height: 3px;
+    border-radius: inherit;
     background: linear-gradient(90deg, rgba(16,185,129,0.1), rgba(16,185,129,0.8), rgba(16,185,129,0.1));
     opacity: 0.3;
     transition: opacity 0.3s ease;

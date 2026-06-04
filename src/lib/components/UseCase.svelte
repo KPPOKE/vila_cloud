@@ -69,7 +69,6 @@
     justify-content: flex-end;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
   }
 
   /* Subtle gradient overlay on hover */
@@ -77,6 +76,7 @@
     content: '';
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent 70%);
     opacity: 0;
     transition: opacity 0.3s ease;
