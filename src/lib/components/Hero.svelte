@@ -52,21 +52,34 @@
     const typeTl = gsap.timeline({ repeat: -1 });
     
     phrases.forEach((phrase) => {
-      // Type out
-      typeTl.to(headlineTextRef, {
+      // Create a paused tween for this specific phrase
+      const typeTween = gsap.to(headlineTextRef, {
         duration: 1.5,
         text: phrase,
         ease: "none",
+        paused: true
+      });
+
+      // Proxy object to control the progress of the paused tween
+      let proxy = { p: 0 };
+
+      // Type out (forward)
+      typeTl.to(proxy, {
+        p: 1,
+        duration: 1.5,
+        ease: "none",
+        onUpdate: () => typeTween.progress(proxy.p)
       });
       
       // Pause to read
       typeTl.to({}, { duration: 3.5 });
       
-      // Delete (backspace effect)
-      typeTl.to(headlineTextRef, {
+      // Delete (backspace effect - backward)
+      typeTl.to(proxy, {
+        p: 0,
         duration: 1,
-        text: "",
         ease: "none",
+        onUpdate: () => typeTween.progress(proxy.p)
       });
     });
 
