@@ -18,6 +18,9 @@ export function intersect(node: HTMLElement) {
 
   // Set initial state
   gsap.set(node, { opacity: 0, y: 30 });
+  
+  // Disable CSS transitions during GSAP animation to prevent conflict
+  node.style.transition = 'none';
 
   const anim = gsap.to(node, {
     opacity: 1,
@@ -25,6 +28,12 @@ export function intersect(node: HTMLElement) {
     duration: 0.8,
     delay: delaySec,
     ease: 'power3.out',
+    onComplete: () => {
+      // Restore CSS transitions for hover effects
+      node.style.transition = '';
+      // Clear GSAP's transform so CSS hover transforms work
+      gsap.set(node, { clearProps: 'transform' });
+    },
     scrollTrigger: {
       trigger: node,
       start: 'top 85%',
