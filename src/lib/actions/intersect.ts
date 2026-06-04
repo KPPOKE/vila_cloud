@@ -1,24 +1,43 @@
-export function intersect(node: HTMLElement) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          node.classList.add('in-view');
-          observer.unobserve(node); // Only animate once
-        }
-      });
-    },
-    {
-      rootMargin: '0px 0px -50px 0px', // Trigger when element is slightly above the bottom
-      threshold: 0.1
-    }
-  );
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-  observer.observe(node);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+export function intersect(node: HTMLElement) {
+  if (typeof window === 'undefined') return;
+
+  // Parse custom delay from inline style
+  const delayStr = node.style.getPropertyValue('--reveal-delay');
+  let delaySec = 0;
+  if (delayStr) {
+    const ms = parseInt(delayStr.replace('ms', '').trim(), 10);
+    if (!isNaN(ms)) delaySec = ms / 1000;
+  }
+
+  // Set initial state
+  gsap.set(node, { opacity: 0, y: 30 });
+
+  const anim = gsap.to(node, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    delay: delaySec,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: node,
+      start: 'top 90%',
+      toggleActions: 'play none none none',
+    }
+  });
 
   return {
     destroy() {
-      observer.disconnect();
+      if (anim.scrollTrigger) {
+        anim.scrollTrigger.kill();
+      }
+      anim.kill();
     }
   };
 }

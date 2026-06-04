@@ -3,24 +3,40 @@
   import { Cloud } from '@lucide/svelte';
 
   let scrollY = $state(0);
+  let maxScroll = $state(1);
   let mobileMenuOpen = $state(false);
 
   let scrolled = $derived(scrollY > 50);
+  let scrollProgress = $derived((scrollY / maxScroll) * 100);
 
   $effect(() => {
     const onScroll = () => {
       scrollY = window.scrollY;
+      maxScroll = document.documentElement.scrollHeight - window.innerHeight || 1;
     };
+    
+    // Initial calculation
+    onScroll();
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   });
 
   function handleNavClick(e: MouseEvent, href: string) {
     if (href.startsWith('#')) {
       e.preventDefault();
       const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+      if (target && target instanceof HTMLElement) {
+        if (window.__lenis) {
+          window.__lenis.scrollTo(target);
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
       }
       mobileMenuOpen = false;
     }
@@ -32,6 +48,10 @@
 </script>
 
 <nav class="navbar" class:scrolled>
+  <div 
+    class="scroll-progress-bar" 
+    style="transform: scaleX({scrollProgress / 100});"
+  ></div>
   <div class="navbar-inner">
     <!-- Logo -->
     <a href="/" class="logo" aria-label="{siteConfig.brand} home">
@@ -124,6 +144,19 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  /* ── Scroll Progress Bar ── */
+  .scroll-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #10B981, #00D4AA);
+    transform-origin: 0% 50%;
+    transform: scaleX(0);
+    z-index: 10;
   }
 
   /* ── Inner Layout ── */

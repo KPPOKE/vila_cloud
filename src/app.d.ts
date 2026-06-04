@@ -8,6 +8,9 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	interface Window {
+		__lenis: import('lenis').default;
+	}
 }
 
 export {};

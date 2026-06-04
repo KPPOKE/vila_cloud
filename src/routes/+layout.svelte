@@ -4,8 +4,24 @@
 	import '@fontsource/geist-mono/index.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { siteConfig } from '$lib/data/site';
+	import Lenis from 'lenis';
 
 	let { children } = $props();
+
+	$effect(() => {
+		const lenis = new Lenis({
+			autoRaf: true,
+			duration: 1.2,
+			smoothWheel: true
+		});
+
+		window.__lenis = lenis;
+
+		return () => {
+			lenis.destroy();
+			delete (window as any).__lenis;
+		};
+	});
 </script>
 
 <svelte:head>

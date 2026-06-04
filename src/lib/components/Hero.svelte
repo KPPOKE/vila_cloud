@@ -1,6 +1,59 @@
 <script lang="ts">
   import { siteConfig, targetAudience } from '$lib/data/site';
   import { Shield, CheckCircle2, Lock, Clock, Users, Database } from 'lucide-svelte';
+  import { onMount } from 'svelte';
+  import { gsap } from 'gsap';
+  import { TextPlugin } from 'gsap/dist/TextPlugin';
+
+  let badgeRef: HTMLElement;
+  let headlineContainerRef: HTMLElement;
+  let headlineTextRef: HTMLElement;
+  let cursorRef: HTMLElement;
+  let descRef: HTMLElement;
+  let actionsRef: HTMLElement;
+  let visualRef: HTMLElement;
+  let stripRef: HTMLElement;
+
+  onMount(() => {
+    gsap.registerPlugin(TextPlugin);
+    
+    gsap.set([badgeRef, descRef, actionsRef, stripRef], { opacity: 0, y: 20 });
+    gsap.set(visualRef, { opacity: 0, x: 30 }); // Visual slides from right
+    gsap.set(headlineContainerRef, { opacity: 0 });
+    
+    // Blinking cursor
+    const cursorAnim = gsap.to(cursorRef, { opacity: 0, ease: "steps(1)", repeat: -1, duration: 0.8 });
+    
+    const tl = gsap.timeline();
+    
+    tl.to(badgeRef, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.3 });
+    
+    tl.to(headlineContainerRef, { opacity: 1, duration: 0.1 }); 
+    tl.to(headlineTextRef, {
+      duration: 1.5,
+      text: "Internal apps deserve <br/> private infrastructure.",
+      ease: "none",
+    });
+    
+    tl.add(() => cursorAnim.kill()); // stop blinking
+    tl.to(cursorRef, { opacity: 0, duration: 0.2 });
+
+    tl.to([descRef, actionsRef], {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out'
+    }, "-=0.2");
+    
+    tl.to(visualRef, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' }, "-=0.6");
+    tl.to(stripRef, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.4");
+    
+    return () => {
+      tl.kill();
+      cursorAnim.kill();
+    }
+  });
 </script>
 
 <section class="hero relative overflow-hidden section">
@@ -11,20 +64,20 @@
     <div class="hero-grid">
       <!-- Left Content -->
       <div class="hero-content">
-        <div class="badge animate-fade-in-up" style="animation-delay: 0.1s;">
+        <div class="badge" bind:this={badgeRef}>
           <Shield size={14} />
           PRIVATE • AMAN • TERKELOLA
         </div>
 
-        <h1 class="hero-headline animate-fade-in-up" style="animation-delay: 0.2s;">
-          Internal apps deserve <br/> private infrastructure.
+        <h1 class="hero-headline" bind:this={headlineContainerRef}>
+          <span bind:this={headlineTextRef}></span><span class="typing-cursor" bind:this={cursorRef}>|</span>
         </h1>
 
-        <p class="hero-desc animate-fade-in-up" style="animation-delay: 0.3s;">
+        <p class="hero-desc" bind:this={descRef}>
           {siteConfig.description}
         </p>
 
-        <div class="hero-actions animate-fade-in-up" style="animation-delay: 0.4s;">
+        <div class="hero-actions" bind:this={actionsRef}>
           <a href="#pricing" class="btn btn-primary cta-btn-glow">
             Mulai dari Rp249.000/bulan
           </a>
@@ -35,7 +88,7 @@
       </div>
 
       <!-- Right Content: Control Room Mockup -->
-      <div class="hero-visual animate-fade-in-up" style="animation-delay: 0.5s;">
+      <div class="hero-visual" bind:this={visualRef}>
         <div class="mockup-window">
           <div class="mockup-header">
             <div class="mockup-dots">
@@ -114,7 +167,7 @@
     </div>
 
     <!-- Built For Strip -->
-    <div class="built-for-strip animate-fade-in-up" style="animation-delay: 0.6s;">
+    <div class="built-for-strip" bind:this={stripRef}>
       <span class="built-for-label">Built for:</span>
       <div class="built-for-items">
         {#each targetAudience as audience, i}
@@ -184,6 +237,14 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    display: inline-block;
+    min-height: 2.2em; /* prevent layout shift during typing */
+  }
+
+  .typing-cursor {
+    color: var(--color-accent-primary);
+    -webkit-text-fill-color: var(--color-accent-primary); /* override gradient */
+    font-weight: 300;
   }
 
   .hero-desc {
