@@ -21,22 +21,14 @@
     gsap.set(visualRef, { opacity: 0, x: 30 }); // Visual slides from right
     gsap.set(headlineContainerRef, { opacity: 0 });
     
-    // Blinking cursor
+    // Blinking cursor (never stops)
     const cursorAnim = gsap.to(cursorRef, { opacity: 0, ease: "steps(1)", repeat: -1, duration: 0.8 });
     
+    // Main reveal timeline (doesn't wait for typing)
     const tl = gsap.timeline();
     
     tl.to(badgeRef, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.3 });
-    
     tl.to(headlineContainerRef, { opacity: 1, duration: 0.1 }); 
-    tl.to(headlineTextRef, {
-      duration: 1.5,
-      text: "Internal apps deserve <br/> private infrastructure.",
-      ease: "none",
-    });
-    
-    tl.add(() => cursorAnim.kill()); // stop blinking
-    tl.to(cursorRef, { opacity: 0, duration: 0.2 });
 
     tl.to([descRef, actionsRef], {
       opacity: 1,
@@ -44,13 +36,43 @@
       duration: 0.8,
       stagger: 0.2,
       ease: 'power3.out'
-    }, "-=0.2");
+    }, "+=0.2");
     
     tl.to(visualRef, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' }, "-=0.6");
     tl.to(stripRef, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.4");
     
+    // Infinite Typing Loop Timeline
+    const phrases = [
+      "Internal apps deserve <br/> private infrastructure.", // English
+      "Aplikasi internal pantas <br/> mendapat infrastruktur privat.", // Indonesian
+      "Aplicaciones internas merecen <br/> infraestructura privada.", // Spanish
+      "Les applications internes méritent <br/> une infrastructure privée." // French
+    ];
+
+    const typeTl = gsap.timeline({ repeat: -1 });
+    
+    phrases.forEach((phrase) => {
+      // Type out
+      typeTl.to(headlineTextRef, {
+        duration: 1.5,
+        text: phrase,
+        ease: "none",
+      });
+      
+      // Pause to read
+      typeTl.to({}, { duration: 3.5 });
+      
+      // Delete (backspace effect)
+      typeTl.to(headlineTextRef, {
+        duration: 1,
+        text: "",
+        ease: "none",
+      });
+    });
+
     return () => {
       tl.kill();
+      typeTl.kill();
       cursorAnim.kill();
     }
   });
