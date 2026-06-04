@@ -64,20 +64,20 @@
     <div class="hero-grid">
       <!-- Left Content -->
       <div class="hero-content">
-        <div class="badge" bind:this={badgeRef}>
+        <div class="badge" bind:this={badgeRef} style="opacity: 0; transform: translateY(20px);">
           <Shield size={14} />
           PRIVATE • AMAN • TERKELOLA
         </div>
 
-        <h1 class="hero-headline" bind:this={headlineContainerRef}>
+        <h1 class="hero-headline" bind:this={headlineContainerRef} style="opacity: 0;">
           <span bind:this={headlineTextRef}></span><span class="typing-cursor" bind:this={cursorRef}>|</span>
         </h1>
 
-        <p class="hero-desc" bind:this={descRef}>
+        <p class="hero-desc" bind:this={descRef} style="opacity: 0; transform: translateY(20px);">
           {siteConfig.description}
         </p>
 
-        <div class="hero-actions" bind:this={actionsRef}>
+        <div class="hero-actions" bind:this={actionsRef} style="opacity: 0; transform: translateY(20px);">
           <a href="#pricing" class="btn btn-primary cta-btn-glow">
             Mulai dari Rp249.000/bulan
           </a>
@@ -88,7 +88,7 @@
       </div>
 
       <!-- Right Content: Control Room Mockup -->
-      <div class="hero-visual" bind:this={visualRef}>
+      <div class="hero-visual" bind:this={visualRef} style="opacity: 0; transform: translateX(30px);">
         <div class="mockup-window">
           <div class="mockup-header">
             <div class="mockup-dots">
@@ -167,7 +167,7 @@
     </div>
 
     <!-- Built For Strip -->
-    <div class="built-for-strip" bind:this={stripRef}>
+    <div class="built-for-strip" bind:this={stripRef} style="opacity: 0; transform: translateY(20px);">
       <span class="built-for-label">Built for:</span>
       <div class="built-for-items">
         {#each targetAudience as audience, i}
