@@ -18,7 +18,7 @@
   <div class="container">
     <h2 class="section-title scroll-reveal" use:intersect>Pertanyaan yang Sering Diajukan</h2>
 
-    <div class="faq-container card scroll-reveal" use:intersect style="transition-delay: 200ms">
+    <div class="faq-container card scroll-reveal" use:intersect style="--reveal-delay: 200ms">
       {#each faqItems as item, i}
         <div class="faq-item" class:is-open={openIndex === i}>
           <button 

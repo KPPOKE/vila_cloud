@@ -159,6 +159,44 @@ body {
 }
 
 /* ========================================
+   Circuit Border Animation
+   ======================================== */
+@property --bg-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-circuit {
+  to { --bg-angle: 360deg; }
+}
+
+.card::after, .layer-card::after, .bento-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--bg-angle),
+    transparent 60%,
+    var(--color-accent-primary) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-circuit 2.5s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.card:hover::after, .layer-card:hover::after, .bento-card:hover::before {
+  opacity: 1;
+}
+
+/* ========================================
    Button Styles
    ======================================== */
 
@@ -265,7 +303,8 @@ body {
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 

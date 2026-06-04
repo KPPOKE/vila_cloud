@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { pricingPlans, pricingNote, siteConfig } from '$lib/data/site';
+  import { pricingPlans, pricingNote } from '$lib/data/site';
   import { Check, Star } from 'lucide-svelte';
   import { intersect } from '$lib/actions/intersect';
 </script>
@@ -15,7 +15,7 @@
 
     <div class="pricing-grid">
       {#each pricingPlans as plan, i}
-        <div class="card pricing-card {plan.recommended ? 'recommended' : ''} scroll-reveal" use:intersect style="transition-delay: {i * 150}ms">
+        <div class="card pricing-card {plan.recommended ? 'recommended' : ''} scroll-reveal" use:intersect style="--reveal-delay: {i * 150}ms">
           {#if plan.recommended}
             <div class="recommended-badge">
               <Star size={12} class="mr-1" /> RECOMMENDED
@@ -113,6 +113,7 @@
     letter-spacing: 0.05em;
     display: flex;
     align-items: center;
+    gap: 4px;
     box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
   }
 

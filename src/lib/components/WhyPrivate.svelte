@@ -10,7 +10,7 @@
       <h2 class="section-title">Kenapa Tidak Cukup Pakai Shared Hosting?</h2>
     </div>
 
-    <div class="split-comparison scroll-reveal" use:intersect style="transition-delay: 200ms">
+    <div class="split-comparison scroll-reveal" use:intersect style="--reveal-delay: 200ms">
       <!-- Left Side: Shared Hosting -->
       <div class="split-side shared-side">
         <div class="side-header">
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="comparison-note scroll-reveal" use:intersect style="transition-delay: 400ms">
+    <div class="comparison-note scroll-reveal" use:intersect style="--reveal-delay: 400ms">
       <p>{comparisonNote}</p>
     </div>
   </div>

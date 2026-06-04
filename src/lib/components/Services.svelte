@@ -13,7 +13,7 @@
     <div class="services-grid">
       {#each services as service, i}
         {@const Icon = service.icon}
-        <div class="card service-card scroll-reveal" use:intersect style="transition-delay: {i * 100}ms">
+        <div class="card service-card scroll-reveal" use:intersect style="--reveal-delay: {i * 100}ms">
           <div class="service-icon">
             <Icon size={40} color="#00D4AA" strokeWidth={1.5} />
           </div>

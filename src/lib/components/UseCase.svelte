@@ -15,7 +15,7 @@
     <div class="bento-grid">
       {#each useCases as useCase, i}
         {@const Icon = useCase.icon}
-        <div class="bento-card {useCase.span || 'col-span-1'} group scroll-reveal {i === 0 || i === 4 ? 'featured-card' : ''}" use:intersect style="transition-delay: {i * 100}ms">
+        <div class="bento-card {useCase.span || 'col-span-1'} group scroll-reveal {i === 0 || i === 4 ? 'featured-card' : ''}" use:intersect style="--reveal-delay: {i * 100}ms">
           <div class="bento-icon">
             <Icon size={28} class="text-emerald-400 group-hover:text-emerald-300 transition-colors" strokeWidth={1.5} />
           </div>

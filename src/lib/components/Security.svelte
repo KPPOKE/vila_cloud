@@ -20,7 +20,7 @@
       <div class="layers-container">
         {#each securityFeatures as feature, i}
           {@const Icon = feature.icon}
-          <div class="layer-card scroll-reveal" use:intersect style="transition-delay: {i * 150}ms">
+          <div class="layer-card scroll-reveal" use:intersect style="--reveal-delay: {i * 150}ms">
             <div class="layer-number font-mono">0{i + 1}</div>
             <div class="layer-icon">
               <Icon size={24} class="text-emerald-400" strokeWidth={1.5} />

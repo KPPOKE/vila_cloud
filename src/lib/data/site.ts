@@ -1,11 +1,9 @@
 import {
-  Cloud,
   Users,
   Building,
   LayoutDashboard,
   FileText,
   BarChart3,
-  Wrench,
   Server,
   TerminalSquare,
   RefreshCw,
@@ -14,11 +12,8 @@ import {
   Database,
   Save,
   BrickWall,
-  FolderLock,
-  ShieldCheck,
-  Settings2,
-  MessageCircle,
-} from '@lucide/svelte';
+  FolderLock
+} from 'lucide-svelte';
 
 export const siteConfig = {
   brand: 'Vila Cloud',

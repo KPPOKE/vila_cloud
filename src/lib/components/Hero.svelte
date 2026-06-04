@@ -1,6 +1,6 @@
 <script lang="ts">
   import { siteConfig, targetAudience } from '$lib/data/site';
-  import { Shield, CheckCircle2, Lock, Server, Clock, Users, Database } from '@lucide/svelte';
+  import { Shield, CheckCircle2, Lock, Clock, Users, Database } from 'lucide-svelte';
 </script>
 
 <section class="hero relative overflow-hidden section">
