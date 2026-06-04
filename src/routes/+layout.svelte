@@ -5,17 +5,30 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { siteConfig } from '$lib/data/site';
 	import Lenis from 'lenis';
+	import { onMount } from 'svelte';
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 	let { children } = $props();
 
-	$effect(() => {
+	onMount(() => {
+		gsap.registerPlugin(ScrollTrigger);
+
 		const lenis = new Lenis({
-			autoRaf: true,
+			autoRaf: false, // Turn off autoRaf to sync with GSAP
 			duration: 1.2,
 			smoothWheel: true
 		});
 
 		window.__lenis = lenis;
+
+		lenis.on('scroll', ScrollTrigger.update);
+
+		gsap.ticker.add((time) => {
+			lenis.raf(time * 1000);
+		});
+
+		gsap.ticker.lagSmoothing(0);
 
 		return () => {
 			lenis.destroy();

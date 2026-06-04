@@ -27,7 +27,7 @@ export function intersect(node: HTMLElement) {
     ease: 'power3.out',
     scrollTrigger: {
       trigger: node,
-      start: 'top 90%',
+      start: 'top 85%',
       toggleActions: 'play none none none',
     }
   });
