@@ -272,7 +272,7 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: inline-block;
+    display: block;
     min-height: 2.2em; /* prevent layout shift during typing */
   }
 
